@@ -7,7 +7,8 @@
 	"scripts": {
 		"start": "node ./dist/main.js",
 		"build": "tsc -b src",
-		"dev": "yarn build && yarn start"
+		"dev": "yarn build && yarn start",
+		"prepublishOnly": "yarn build"
 	},
 	"exports": {
 		"types": "./dist/index.d.ts",
