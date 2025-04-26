@@ -1,4 +1,4 @@
-import { HotelDomainURL } from 'constants.js';
+import { HotelDomainURL } from './constants.js';
 import { AchievementsAPI } from './routes/achievements.js';
 import { GroupsAPI } from './routes/groups.js';
 import { ListsAPI } from './routes/lists.js';

@@ -1,5 +1,5 @@
 import { Json, type FetchResult } from '@skyra/safe-fetch';
-import { HabboGroupType } from 'routes/groups.js';
+import { HabboGroupType } from './groups.js';
 import { BaseAPI, type APIOptions } from './base.js';
 
 export class UsersAPI extends BaseAPI {
