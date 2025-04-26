@@ -1,9 +1,17 @@
-# Bot
+# `@ejercito-fam/habbo-api`
 
-## Setup
+```ts
+import { Habbo, HotelDomainURL } from '@ejercito-fam/habbo-api';
 
-To manage dependencies, it is recommended to use Yarn, using `yarn --immutable` to install dependencies.
+// Initialize the client:
+const client = new Habbo({
+	baseURL: HotelDomainURL.Spanish
+});
 
-Create a `.env.development.local` file inside the `src` directory, copying the template from the `.env` file in the same
-directory, and then fill in the fields. The ENV loader is powered by
-[`@skyra/env-utilities`](https://www.npmjs.com/package/@skyra/env-utilities), more information in the package.
+// Fetch a user by its username:
+const result = await client.users.getByUsername('-tobi-talent-');
+
+// Log the user:
+const user = result.unwrap();
+console.log(user);
+```

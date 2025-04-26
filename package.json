@@ -14,6 +14,9 @@
 		"types": "./dist/index.d.ts",
 		"import": "./dist/index.js"
 	},
+  "files": [
+    "dist/"
+  ],
 	"dependencies": {
 		"@skyra/safe-fetch": "^1.1.3"
 	},
