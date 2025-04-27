@@ -1,6 +1,7 @@
 import { Json, type FetchResult } from '@skyra/safe-fetch';
-import { HabboGroupType } from './groups.js';
+import { isNullish } from '../common.js';
 import { BaseAPI, type APIOptions } from './base.js';
+import { HabboGroupType } from './groups.js';
 
 export class UsersAPI extends BaseAPI {
 	/**
@@ -90,6 +91,41 @@ export class UsersAPI extends BaseAPI {
 	public getUserPhotos(uniqueId: string, options?: APIOptions): Promise<FetchResult<HabboUserPhotos[]>> {
 		const url = this.formatURL(`/extradata/public/users/${uniqueId}/photos`);
 		return Json<HabboUserPhotos[]>(this.fetch(url, options));
+	}
+
+	/**
+	 * Get a user's figure
+	 *
+	 * @param options - The options for the image
+	 */
+	public getUserFigureImageURL(options: HabboFigureName | HabboFigureStatic): URL {
+		const url = this.formatURL('/habbo-imaging/avatarimage');
+
+		if ('figure' in options && !isNullish(options.figure)) {
+			url.searchParams.append('figure', options.figure);
+			if (!isNullish(options.gender)) url.searchParams.append('gender', HabboFigureGender[options.gender]);
+		} else if ('user' in options && !isNullish(options.user)) {
+			url.searchParams.append('user', options.user);
+		} else {
+			throw new Error('You must define `figure` or `user` in the options');
+		}
+
+		if (!isNullish(options.action)) {
+			const habboAction = HabboFigureAction[options.action];
+			url.searchParams.append(
+				'action',
+				isNullish(options.hand) //
+					? habboAction
+					: `${habboAction}=${HabboFigureHand[options.hand]}`
+			);
+		}
+		if (!isNullish(options.direction)) url.searchParams.append('direction', HabboFigureDirection[options.direction]);
+		if (!isNullish(options.headDirection)) url.searchParams.append('head_direction', HabboFigureDirection[options.headDirection]);
+		if (!isNullish(options.gesture)) url.searchParams.append('gesture', HabboFigureGesture[options.gesture]);
+		if (!isNullish(options.size)) url.searchParams.append('size', HabboFigureSize[options.size]);
+		if (!isNullish(options.headOnly)) url.searchParams.append('headonly', options.headOnly ? '1' : '0');
+
+		return url;
 	}
 }
 
@@ -446,3 +482,101 @@ export interface HabboUserPhotos {
 	 */
 	likes: string[];
 }
+
+export interface HabboFigureName extends HabboFigureBase {
+	/**
+	 * The Habbo username.
+	 */
+	user: string;
+}
+
+export interface HabboFigureStatic extends HabboFigureBase {
+	/**
+	 * The Habbo figure to use.
+	 */
+	figure: string;
+	/**
+	 * The Habbo's gender.
+	 */
+	gender?: keyof typeof HabboFigureGender | undefined | null;
+}
+
+export interface HabboFigureBase {
+	/**
+	 * The action the user should perform.
+	 */
+	action?: keyof typeof HabboFigureAction | undefined | null;
+	/**
+	 * The hand item, will override {@linkcode HabboFigureBase.action} to `'crr'`.
+	 */
+	hand?: keyof typeof HabboFigureHand | undefined | null;
+	/**
+	 * The Habbo's direction.
+	 */
+	direction?: keyof typeof HabboFigureDirection | undefined | null;
+	/**
+	 * The Habbo's head direction.
+	 */
+	headDirection?: keyof typeof HabboFigureDirection | undefined | null;
+	/**
+	 * The gesture, if any.
+	 */
+	gesture?: keyof typeof HabboFigureGesture | undefined | null;
+	/**
+	 * The size of the character.
+	 */
+	size?: keyof typeof HabboFigureSize | undefined | null;
+	/**
+	 * Whether or not to render only the head.
+	 */
+	headOnly?: boolean | undefined | null;
+}
+
+export const HabboFigureAction = {
+	// Main Actions
+	lay: 'lay',
+	sit: 'sit',
+	respect: 'respect',
+	walk: 'wlk',
+	wave: 'wav',
+	carry: 'crr',
+	drink: 'drk',
+	sign: 'sig',
+	blow: 'blw',
+	laugh: 'laugh'
+} as const;
+
+export const HabboFigureHand = {
+	nothing: '0',
+	carrot: '2',
+	coffee: '6',
+	cocktail: '667',
+	habbo_cola: '5',
+	ice_cream: '3',
+	japanese_tea: '42',
+	love_potion: '9',
+	radioactive: '44',
+	tomato: '43',
+	water: '1'
+} as const;
+
+export const HabboFigureGesture = {
+	nothing: 'nrm',
+	happy: 'sml',
+	sad: 'sad',
+	angry: 'agr',
+	surprised: 'srp',
+	sleeping: 'eyb',
+	speaking: 'spk'
+} as const;
+
+export const HabboFigureSize = { small: 's', normal: 'm', large: 'l' } as const;
+export const HabboFigureDirection = { nw: '0', w: '1', sw: '2', s: '3', se: '4', e: '5', ne: '6', n: '7' } as const;
+export const HabboFigureGender = { male: 'M', female: 'F' } as const;
+
+export const HabboFigureGestureKeys = Object.keys(HabboFigureGesture) as (keyof typeof HabboFigureGesture)[];
+export const HabboFigureActionKeys = Object.keys(HabboFigureAction) as (keyof typeof HabboFigureAction)[];
+export const HabboFigureHandKeys = Object.keys(HabboFigureHand) as (keyof typeof HabboFigureHand)[];
+export const HabboFigureSizeKeys = Object.keys(HabboFigureSize) as (keyof typeof HabboFigureSize)[];
+export const HabboFigureDirectionKeys = Object.keys(HabboFigureDirection) as (keyof typeof HabboFigureDirection)[];
+export const HabboFigureGenderKeys = Object.keys(HabboFigureGender) as (keyof typeof HabboFigureGender)[];
