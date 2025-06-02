@@ -1,5 +1,6 @@
 import { Json, type FetchResult } from '@skyra/safe-fetch';
 import { BaseAPI, type APIOptions } from './base.js';
+import type { HabboRoomUniqueId } from './rooms.js';
 
 export class GroupsAPI extends BaseAPI {
 	/**
@@ -65,7 +66,7 @@ export interface HabboGroup {
 	/**
 	 * The ID of the room associated with the group, or null if no room is associated.
 	 */
-	roomId: number | null;
+	roomId: HabboRoomUniqueId;
 
 	/**
 	 * The badge code of the group.

@@ -26,11 +26,19 @@ export class MarketplaceAPI extends BaseAPI {
 }
 
 export interface MarketplaceStats {
-	status: 'OK';
+	history: MarketplaceStatsHistory[];
 	statsDate: `${bigint}-${bigint}-${bigint}`;
 	soldItemCount: number;
 	creditSum: number;
 	averagePrice: number;
 	totalOpenOffers: number;
 	historyLimitInDays: number;
+}
+
+export interface MarketplaceStatsHistory {
+	dayOffset: `${bigint}`;
+	averagePrice: `${bigint}`;
+	totalSoldItems: `${bigint}`;
+	totalCreditSum: `${bigint}`;
+	totalOpenOffers: `${bigint}`;
 }
