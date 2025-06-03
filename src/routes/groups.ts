@@ -1,4 +1,5 @@
 import { Json, type FetchResult } from '@skyra/safe-fetch';
+import { isNullish } from 'common.js';
 import { BaseAPI, type APIOptions } from './base.js';
 import type { HabboRoomUniqueId } from './rooms.js';
 
@@ -20,8 +21,12 @@ export class GroupsAPI extends BaseAPI {
 	 * @param id - The ID of the group
 	 * @param options - The options for the API call
 	 */
-	public getGroupMembers(id: HabboGroupId, options?: APIOptions): Promise<FetchResult<HabboGroupMember[]>> {
+	public getGroupMembers(id: HabboGroupId, options?: GetGroupMembersOptions): Promise<FetchResult<HabboGroupMember[]>> {
 		const url = this.formatURL(`/api/public/groups/${id}/members`);
+		if (!isNullish(options?.pageIndex)) {
+			url.searchParams.append('pageIndex', options.pageIndex.toString());
+		}
+
 		return Json<HabboGroupMember[]>(this.fetch(url, options));
 	}
 
@@ -37,7 +42,17 @@ export class GroupsAPI extends BaseAPI {
 	}
 }
 
-export type HabboGroupId = `g-hh${string}-${string};`
+/**
+ * The options for {@linkcode GroupsAPI.getGroupMembers}.
+ */
+export interface GetGroupMembersOptions extends APIOptions {
+	/**
+	 * The page index to look for, each page containing up to 1000 entries.
+	 */
+	pageIndex?: number | null | undefined;
+}
+
+export type HabboGroupId = `g-hh${string}-${string};`;
 
 /**
  * Represents a Habbo group.
