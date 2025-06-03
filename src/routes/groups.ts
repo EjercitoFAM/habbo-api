@@ -1,5 +1,5 @@
 import { Json, type FetchResult } from '@skyra/safe-fetch';
-import { isNullish } from 'common.js';
+import { isNullish } from '../common.js';
 import { BaseAPI, type APIOptions } from './base.js';
 import type { HabboRoomUniqueId } from './rooms.js';
 
