@@ -9,7 +9,7 @@ export class PingAPI extends BaseAPI {
 	public async get(options?: APIOptions): Promise<number | null> {
 		const url = this.formatURL('/api/public/ping');
 		const now = performance.now();
-		return (await this.fetch(url, options)).match({
+		return (await this.fetchGet(url, options)).match({
 			ok: () => performance.now() - now,
 			err: () => null
 		});

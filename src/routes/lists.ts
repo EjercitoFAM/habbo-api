@@ -9,7 +9,7 @@ export class ListsAPI extends BaseAPI {
 	 */
 	public async getHotLooks(options: APIOptions): Promise<FetchResult<HabboHotLookList>> {
 		const url = this.formatURL('/api/public/lists/hotlooks');
-		const data = await this.fetch(url, options);
+		const data = await this.fetchGet(url, options);
 		return data.map(async (result) => this.#parseHotLooksXML(await result.text())).intoPromise();
 	}
 

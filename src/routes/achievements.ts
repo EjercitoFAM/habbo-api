@@ -10,7 +10,7 @@ export class AchievementsAPI extends BaseAPI {
 	 */
 	public getAll(options?: APIOptions): Promise<FetchResult<Achievement[]>> {
 		const url = this.formatURL('/api/public/achievements');
-		return Json<Achievement[]>(this.fetch(url, options));
+		return Json<Achievement[]>(this.fetchGet(url, options));
 	}
 
 	/**
@@ -21,7 +21,7 @@ export class AchievementsAPI extends BaseAPI {
 	 */
 	public getByUserId(id: HabboUserId, options?: APIOptions): Promise<FetchResult<UserAchievement[]>> {
 		const url = this.formatURL(`/api/public/achievements/${id}`);
-		return Json<UserAchievement[]>(this.fetch(url, options));
+		return Json<UserAchievement[]>(this.fetchGet(url, options));
 	}
 
 	/**
