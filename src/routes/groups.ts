@@ -12,7 +12,7 @@ export class GroupsAPI extends BaseAPI {
 	 */
 	public getByUniqueId(id: HabboGroupId, options?: APIOptions): Promise<FetchResult<HabboGroup>> {
 		const url = this.formatURL(`/api/public/groups/${id}`);
-		return Json<HabboGroup>(this.fetch(url, options));
+		return Json<HabboGroup>(this.fetchGet(url, options));
 	}
 
 	/**
@@ -27,7 +27,7 @@ export class GroupsAPI extends BaseAPI {
 			url.searchParams.append('pageIndex', options.pageIndex.toString());
 		}
 
-		return Json<HabboGroupMember[]>(this.fetch(url, options));
+		return Json<HabboGroupMember[]>(this.fetchGet(url, options));
 	}
 
 	/**

@@ -10,7 +10,7 @@ export class RoomsAPI extends BaseAPI {
 	 */
 	public async getById(roomId: number, options?: APIOptions): Promise<FetchResult<HabboRoom>> {
 		const url = this.formatURL(`/api/public/rooms/${roomId}`);
-		return Json<HabboRoom>(this.fetch(url, options));
+		return Json<HabboRoom>(this.fetchGet(url, options));
 	}
 }
 

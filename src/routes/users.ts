@@ -13,7 +13,7 @@ export class UsersAPI extends BaseAPI {
 	public getByUsername(username: string, options?: APIOptions): Promise<FetchResult<HabboUser>> {
 		const url = this.formatURL('/api/public/users');
 		url.searchParams.set('name', username);
-		return Json<HabboUser>(this.fetch(url, options));
+		return Json<HabboUser>(this.fetchGet(url, options));
 	}
 
 	/**
@@ -24,7 +24,7 @@ export class UsersAPI extends BaseAPI {
 	 */
 	public getByUniqueId(uniqueId: string, options?: APIOptions): Promise<FetchResult<HabboUser>> {
 		const url = this.formatURL(`/api/public/users/${uniqueId}`);
-		return Json<HabboUser>(this.fetch(url, options));
+		return Json<HabboUser>(this.fetchGet(url, options));
 	}
 
 	/**
@@ -35,7 +35,7 @@ export class UsersAPI extends BaseAPI {
 	 */
 	public getUserFriends(uniqueId: string, options?: APIOptions): Promise<FetchResult<HabboUserFriend[]>> {
 		const url = this.formatURL(`/api/public/users/${uniqueId}/friends`);
-		return Json<HabboUserFriend[]>(this.fetch(url, options));
+		return Json<HabboUserFriend[]>(this.fetchGet(url, options));
 	}
 
 	/**
@@ -46,7 +46,7 @@ export class UsersAPI extends BaseAPI {
 	 */
 	public getUserGroups(uniqueId: string, options?: APIOptions): Promise<FetchResult<HabboUserGroup[]>> {
 		const url = this.formatURL(`/api/public/users/${uniqueId}/groups`);
-		return Json<HabboUserGroup[]>(this.fetch(url, options));
+		return Json<HabboUserGroup[]>(this.fetchGet(url, options));
 	}
 
 	/**
@@ -57,7 +57,7 @@ export class UsersAPI extends BaseAPI {
 	 */
 	public getUserRooms(uniqueId: string, options?: APIOptions): Promise<FetchResult<HabboUserRoom[]>> {
 		const url = this.formatURL(`/api/public/users/${uniqueId}/rooms`);
-		return Json<HabboUserRoom[]>(this.fetch(url, options));
+		return Json<HabboUserRoom[]>(this.fetchGet(url, options));
 	}
 
 	/**
@@ -68,7 +68,7 @@ export class UsersAPI extends BaseAPI {
 	 */
 	public getUserBadges(uniqueId: string, options?: APIOptions): Promise<FetchResult<HabboUserBadge[]>> {
 		const url = this.formatURL(`/api/public/users/${uniqueId}/badges`);
-		return Json<HabboUserBadge[]>(this.fetch(url, options));
+		return Json<HabboUserBadge[]>(this.fetchGet(url, options));
 	}
 
 	/**
@@ -79,7 +79,7 @@ export class UsersAPI extends BaseAPI {
 	 */
 	public getUserProfile(uniqueId: string, options?: APIOptions): Promise<FetchResult<HabboUserProfile>> {
 		const url = this.formatURL(`/api/public/users/${uniqueId}/profile`);
-		return Json<HabboUserProfile>(this.fetch(url, options));
+		return Json<HabboUserProfile>(this.fetchGet(url, options));
 	}
 
 	/**
@@ -90,7 +90,7 @@ export class UsersAPI extends BaseAPI {
 	 */
 	public getUserPhotos(uniqueId: string, options?: APIOptions): Promise<FetchResult<HabboUserPhotos[]>> {
 		const url = this.formatURL(`/extradata/public/users/${uniqueId}/photos`);
-		return Json<HabboUserPhotos[]>(this.fetch(url, options));
+		return Json<HabboUserPhotos[]>(this.fetchGet(url, options));
 	}
 
 	/**

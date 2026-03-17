@@ -13,8 +13,17 @@ export abstract class BaseAPI {
 		return new URL(route, this.baseURL);
 	}
 
-	protected fetch(url: string | URL, options?: APIOptions): Promise<FetchResult<Response>> {
+	protected fetchGet(url: string | URL, options?: APIOptions): Promise<FetchResult<Response>> {
 		return safeFetch(url, { headers: { 'Content-Type': 'application/json' }, signal: this.#getSignalOrDefault(options) });
+	}
+
+	protected fetchPost(url: string | URL, body: object, options?: APIOptions): Promise<FetchResult<Response>> {
+		return safeFetch(url, {
+			method: 'POST',
+			headers: { 'Content-Type': 'application/json' },
+			body: JSON.stringify(body),
+			signal: this.#getSignalOrDefault(options)
+		});
 	}
 
 	#getSignalOrDefault(options?: APIOptions): AbortSignal | null {
