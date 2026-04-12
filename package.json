@@ -1,7 +1,7 @@
 {
 	"name": "@ejercito-fam/habbo-api",
 	"description": "A typed Habbo API library",
-	"version": "1.4.1",
+	"version": "2.0.0",
 	"type": "module",
 	"main": "dist/cjs/index.cjs",
 	"module": "dist/esm/index.mjs",
@@ -30,16 +30,16 @@
 	"devDependencies": {
 		"@sapphire/eslint-config": "^5.0.6",
 		"@sapphire/prettier-config": "^2.0.0",
-		"@sapphire/ts-config": "^5.0.1",
-		"@types/node": "^22.15.29",
-		"@typescript-eslint/eslint-plugin": "^8.33.0",
-		"@typescript-eslint/parser": "^8.33.0",
-		"eslint": "^9.28.0",
-		"eslint-config-prettier": "^10.1.5",
-		"eslint-plugin-prettier": "^5.4.1",
-		"prettier": "^3.5.3",
-		"tsup": "^8.5.0",
-		"typescript": "^5.8.3"
+		"@sapphire/ts-config": "^5.0.3",
+		"@types/node": "^22.19.17",
+		"@typescript-eslint/eslint-plugin": "^8.58.1",
+		"@typescript-eslint/parser": "^8.58.1",
+		"eslint": "^9.39.4",
+		"eslint-config-prettier": "^10.1.8",
+		"eslint-plugin-prettier": "^5.5.5",
+		"prettier": "^3.8.2",
+		"tsup": "^8.5.1",
+		"typescript": "^5.9.3"
 	},
 	"publishConfig": {
 		"access": "public"
@@ -52,5 +52,5 @@
 			"dist/"
 		]
 	},
-	"packageManager": "yarn@4.7.0"
+	"packageManager": "yarn@4.13.0"
 }
