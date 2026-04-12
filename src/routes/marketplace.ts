@@ -38,9 +38,9 @@ export class MarketplaceAPI extends BaseAPI {
 	 * @param data - The data for the stats request
 	 * @param options - The options for the API call
 	 */
-	public getStats(data: MarketplaceGetStats, options?: APIOptions) {
-		const url = this.formatURL('/api/public/marketplace/stats');
-		return Json<MarketplaceStats[]>(this.fetchPost(url, data, options));
+	public getStats(data: MarketplaceGetStats, options?: APIOptions): Promise<FetchResult<MarketplaceStatsResult>> {
+		const url = this.formatURL('/api/public/marketplace/stats/batch');
+		return Json<MarketplaceStatsResult>(this.fetchPost(url, data, options));
 	}
 }
 
