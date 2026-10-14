@@ -13,14 +13,36 @@ export abstract class BaseAPI {
 		return new URL(route, this.baseURL);
 	}
 
-	protected fetchGet(url: string | URL, options?: APIOptions): Promise<FetchResult<Response>> {
-		return safeFetch(url, { headers: { 'Content-Type': 'application/json' }, signal: this.#getSignalOrDefault(options) });
+	protected fetchGet(url: string | URL, options?: APIOptions, headers?: Record<string, string>): Promise<FetchResult<Response>> {
+		return safeFetch(url, { headers: { 'Content-Type': 'application/json', ...headers }, signal: this.#getSignalOrDefault(options) });
 	}
 
-	protected fetchPost(url: string | URL, body: object, options?: APIOptions): Promise<FetchResult<Response>> {
+	protected fetchPost(url: string | URL, body: object, options?: APIOptions, headers?: Record<string, string>): Promise<FetchResult<Response>> {
+		return this.#fetchWithBody('POST', url, body, options, headers);
+	}
+
+	protected fetchPut(url: string | URL, body: object, options?: APIOptions, headers?: Record<string, string>): Promise<FetchResult<Response>> {
+		return this.#fetchWithBody('PUT', url, body, options, headers);
+	}
+
+	protected fetchPatch(url: string | URL, body: object, options?: APIOptions, headers?: Record<string, string>): Promise<FetchResult<Response>> {
+		return this.#fetchWithBody('PATCH', url, body, options, headers);
+	}
+
+	protected fetchDelete(url: string | URL, options?: APIOptions, headers?: Record<string, string>): Promise<FetchResult<Response>> {
+		return safeFetch(url, { method: 'DELETE', headers, signal: this.#getSignalOrDefault(options) });
+	}
+
+	#fetchWithBody(
+		method: 'POST' | 'PUT' | 'PATCH',
+		url: string | URL,
+		body: object,
+		options?: APIOptions,
+		headers?: Record<string, string>
+	): Promise<FetchResult<Response>> {
 		return safeFetch(url, {
-			method: 'POST',
-			headers: { 'Content-Type': 'application/json' },
+			method,
+			headers: { 'Content-Type': 'application/json', ...headers },
 			body: JSON.stringify(body),
 			signal: this.#getSignalOrDefault(options)
 		});

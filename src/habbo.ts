@@ -6,6 +6,7 @@ import { MarketplaceAPI } from './routes/marketplace.js';
 import { PingAPI } from './routes/ping.js';
 import { RoomsAPI } from './routes/rooms.js';
 import { UsersAPI } from './routes/users.js';
+import { WiredAPI } from './routes/wired/index.js';
 
 export class Habbo {
 	public readonly achievements: AchievementsAPI;
@@ -15,6 +16,7 @@ export class Habbo {
 	public readonly ping: PingAPI;
 	public readonly rooms: RoomsAPI;
 	public readonly users: UsersAPI;
+	public readonly wired: WiredAPI;
 
 	public constructor(options?: HabboOptions) {
 		const baseURL = options?.baseURL ?? HotelDomainURL.International;
@@ -27,6 +29,7 @@ export class Habbo {
 		this.ping = new PingAPI(baseURL, timeout);
 		this.rooms = new RoomsAPI(baseURL, timeout);
 		this.users = new UsersAPI(baseURL, timeout);
+		this.wired = new WiredAPI(baseURL, timeout);
 	}
 }
 

@@ -7,3 +7,4 @@ export * from './routes/marketplace.js';
 export * from './routes/ping.js';
 export * from './routes/rooms.js';
 export * from './routes/users.js';
+export * from './routes/wired/index.js';
